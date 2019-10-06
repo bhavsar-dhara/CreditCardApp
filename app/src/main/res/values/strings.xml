@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Credit Card Application</string>
+
+    <!--  Layout field names  -->
+    <string name="cc_card_number">Card Number</string>
+    <string name="cc_expiration_mm_yy">Expiration (MM/YY)</string>
+    <string name="cc_cvv">CVV</string>
+    <string name="cc_first_name">First Name</string>
+    <string name="cc_last_name">Last Name</string>
+    <string name="cc_make_payment">Make Payment</string>
+
+    <!--  Error strings  -->
+    <string name="error_invalid_card_number">Invalid Credit Card Number.</string>
+    <string name="error_invalid_expiration_date">Invalid Expiration Date.</string>
+    <string name="error_invalid_cvv_number">Invalid Cvv Number.</string>
+    <string name="error_invalid_first_name">Invalid First Name.</string>
+    <string name="error_invalid_last_name">Invalid Last Name.</string>
+    <string name="required">Required!</string>
+
+    <!--  Activity/Fragment  -->
+    <string name="success_msg">Payment was successful</string>
+
+</resources>
