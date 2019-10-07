@@ -16,7 +16,7 @@
     <string name="error_invalid_first_name">Invalid First Name.</string>
     <string name="error_invalid_last_name">Invalid Last Name.</string>
     <string name="required">Required!</string>
-    <string name="card_number_required">Credit Card Number is required</string>
+    <string name="card_number_required">Valid Credit Card Number is required</string>
 
     <!--  Activity/Fragment  -->
     <string name="success_title">Success</string>
