@@ -106,6 +106,8 @@ public class CreditCardFragment extends Fragment {
                     }
                 });
 
+        builder.setCancelable(false);
+
         // create alert dialog
         AlertDialog alertDialog = builder.create();
 
