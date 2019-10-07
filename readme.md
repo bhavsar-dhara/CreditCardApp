@@ -8,6 +8,8 @@ This exercise android app implementation handles credit card payments which allo
 4. First Name
 5. Last Name
 
+Showing a pop-up alert dialog on successful validation of the form after click on submit button.
+
 ## Architecture:
 
 Implemented the exercise with **MVVM architecture** (Model-View-ViewModel) to handle the data model, it's flow and business logic across the app.
@@ -26,4 +28,5 @@ Utilized the Android's **Material Design** for the UI components look and have s
 Also used **Leak Canary** library to catch leaks and **Timber** library for better logging.
 
 Have also added **Unit Test Cases** to test the validation required for the form completion and submission.
+
 

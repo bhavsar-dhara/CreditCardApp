@@ -1,14 +1,15 @@
 package com.presto.dhara.creditcardapp.creditcard.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -60,7 +61,7 @@ public class CreditCardFragment extends Fragment {
         observer = new Observer<CreditCardDetails>() {
             @Override
             public void onChanged(CreditCardDetails cardDetails) {
-                Toast.makeText(context, R.string.success_msg, Toast.LENGTH_SHORT).show();
+                showSuccessDialog();
             }
         };
         mViewModel.getCreditCardDetails()
@@ -75,5 +76,25 @@ public class CreditCardFragment extends Fragment {
         mViewModel.getCreditCardDetails().removeObserver(observer);
         if (observer != null)
             observer = null;
+    }
+
+    private void showSuccessDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.success_title)
+                .setMessage(R.string.success_msg)
+                .setPositiveButton(getString(R.string.success_btn), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = builder.create();
+
+        // show it
+        alertDialog.show();
     }
 }

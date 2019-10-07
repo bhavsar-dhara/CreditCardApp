@@ -3,7 +3,6 @@ package com.presto.dhara.creditcardapp.creditcard.viewmodel;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.annotation.VisibleForTesting;
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
