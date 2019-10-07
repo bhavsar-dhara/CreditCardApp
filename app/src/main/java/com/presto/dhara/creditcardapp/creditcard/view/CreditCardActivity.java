@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.presto.dhara.creditcardapp.R;
-import com.presto.dhara.creditcardapp.creditcard.viewmodel.CreditCardViewModel;
 
 public class CreditCardActivity extends AppCompatActivity {
 

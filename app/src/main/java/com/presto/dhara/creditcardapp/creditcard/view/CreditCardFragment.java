@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.presto.dhara.creditcardapp.R;
 import com.presto.dhara.creditcardapp.creditcard.model.CreditCardDetails;
-import com.presto.dhara.creditcardapp.creditcard.viewmodel.CreditCardViewModel;
 import com.presto.dhara.creditcardapp.databinding.CreditCardFragmentBinding;
 
 public class CreditCardFragment extends Fragment {
@@ -27,7 +26,7 @@ public class CreditCardFragment extends Fragment {
     private Observer<CreditCardDetails> observer;
     private CreditCardFragmentBinding binding;
 
-    static CreditCardFragment newInstance() {
+    public static CreditCardFragment newInstance() {
         return new CreditCardFragment();
     }
 

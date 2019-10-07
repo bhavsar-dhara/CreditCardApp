@@ -1,14 +1,17 @@
-package com.presto.dhara.creditcardapp.creditcard.viewmodel;
+package com.presto.dhara.creditcardapp.creditcard.view;
 
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.presto.dhara.creditcardapp.creditcard.model.CreditCardDetails;
 import com.presto.dhara.creditcardapp.creditcard.model.CreditCardForm;
+
+import timber.log.Timber;
 
 public class CreditCardViewModel extends ViewModel {
 
@@ -21,6 +24,7 @@ public class CreditCardViewModel extends ViewModel {
     private View.OnFocusChangeListener onFocusFirstName;
     private View.OnFocusChangeListener onFocusLastName;
 
+    @VisibleForTesting
     public void init() {
         cardForm = new CreditCardForm();
 
@@ -29,6 +33,7 @@ public class CreditCardViewModel extends ViewModel {
             public void onFocusChange(View view, boolean focused) {
                 EditText et = (EditText) view;
                 if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                    Timber.d("onFocusCardNumber: ");
                     cardForm.validateCardNumber(true);
                 }
             }
@@ -39,6 +44,7 @@ public class CreditCardViewModel extends ViewModel {
             public void onFocusChange(View view, boolean focused) {
                 EditText et = (EditText) view;
                 if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                    Timber.d("onFocusExpirationDate: ");
                     cardForm.validateExpirationDate(true);
                 }
             }
@@ -49,6 +55,7 @@ public class CreditCardViewModel extends ViewModel {
             public void onFocusChange(View view, boolean focused) {
                 EditText et = (EditText) view;
                 if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                    Timber.d("onFocusCvvNumber: ");
                     cardForm.validateCvvNumber(true);
                 }
             }
@@ -59,6 +66,7 @@ public class CreditCardViewModel extends ViewModel {
             public void onFocusChange(View view, boolean focused) {
                 EditText et = (EditText) view;
                 if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                    Timber.d("onFocusFirstName: ");
                     cardForm.validateFirstName(true);
                 }
             }
@@ -69,6 +77,7 @@ public class CreditCardViewModel extends ViewModel {
             public void onFocusChange(View view, boolean focused) {
                 EditText et = (EditText) view;
                 if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                    Timber.d("onFocusLastName: ");
                     cardForm.validateLastName(true);
                 }
             }
