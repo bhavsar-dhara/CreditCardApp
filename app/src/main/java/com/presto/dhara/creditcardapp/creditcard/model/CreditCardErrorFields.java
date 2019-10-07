@@ -1,6 +1,6 @@
-package com.presto.dhara.creditcardapp.creditcard.datamodel;
+package com.presto.dhara.creditcardapp.creditcard.model;
 
-public class CreditCardErrorFields {
+class CreditCardErrorFields {
 
     private Integer cardNumber;
     private Integer expirationDate;
@@ -8,43 +8,43 @@ public class CreditCardErrorFields {
     private Integer firstName;
     private Integer lastName;
 
-    public Integer getCardNumber() {
+    Integer getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Integer cardNumber) {
+    void setCardNumber(Integer cardNumber) {
         this.cardNumber = cardNumber;
     }
 
-    public Integer getExpirationDate() {
+    Integer getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Integer expirationDate) {
+    void setExpirationDate(Integer expirationDate) {
         this.expirationDate = expirationDate;
     }
 
-    public Integer getCvvNumber() {
+    Integer getCvvNumber() {
         return cvvNumber;
     }
 
-    public void setCvvNumber(Integer cvvNumber) {
+    void setCvvNumber(Integer cvvNumber) {
         this.cvvNumber = cvvNumber;
     }
 
-    public Integer getFirstName() {
+    Integer getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(Integer firstName) {
+    void setFirstName(Integer firstName) {
         this.firstName = firstName;
     }
 
-    public Integer getLastName() {
+    Integer getLastName() {
         return lastName;
     }
 
-    public void setLastName(Integer lastName) {
+    void setLastName(Integer lastName) {
         this.lastName = lastName;
     }
 }

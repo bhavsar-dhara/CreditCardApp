@@ -1,4 +1,4 @@
-package com.presto.dhara.creditcardapp.creditcard.datamodel;
+package com.presto.dhara.creditcardapp.creditcard.model;
 
 public class CreditCardDetails {
 

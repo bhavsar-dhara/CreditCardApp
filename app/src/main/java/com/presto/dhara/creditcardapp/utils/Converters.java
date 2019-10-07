@@ -6,6 +6,12 @@ import androidx.databinding.InverseMethod;
 
 public class Converters {
 
+    /**
+     * method to convert from String data type to int type
+     *
+     * @param text String type
+     * @return int type
+     */
     @InverseMethod("convertIntToString")
     public static int convertStringToInt(String text) {
         try {
@@ -18,6 +24,12 @@ public class Converters {
         }
     }
 
+    /**
+     * method to convert from Integer data type to String type
+     *
+     * @param value Integer type
+     * @return String type
+     */
     public static String convertIntToString(Integer value) {
         if (value != null)
             return String.valueOf(value);
@@ -25,6 +37,12 @@ public class Converters {
             return "";
     }
 
+    /**
+     * method to convert from String data type to long type
+     *
+     * @param text String type
+     * @return long type
+     */
     @InverseMethod("convertLongToString")
     public static long convertStringToLong(String text) {
         try {
@@ -37,6 +55,12 @@ public class Converters {
         }
     }
 
+    /**
+     * method to convert from Long data type to String type
+     *
+     * @param value Long type
+     * @return String type
+     */
     public static String convertLongToString(Long value) {
         if (value != null)
             return String.valueOf(value);
@@ -44,27 +68,51 @@ public class Converters {
             return "";
     }
 
+    /**
+     * method to unbox wrapper Integer to int type
+     *
+     * @param value Integer type
+     * @return int type
+     */
     @InverseMethod("intBox")
-    public static int intUnbox(Integer b) {
-        if (b != null)
-            return b;
+    public static int intUnbox(Integer value) {
+        if (value != null)
+            return value;
         else
             return 0;
     }
 
-    public static Integer intBox(int b) {
-        return b > 0 ? b : null;
+    /**
+     * method to box int to Integer type
+     *
+     * @param value int type
+     * @return Integer type
+     */
+    public static Integer intBox(int value) {
+        return value > 0 ? value : null;
     }
 
+    /**
+     * method to unbox wrapper Long to long type
+     *
+     * @param value Long type
+     * @return long type
+     */
     @InverseMethod("longBox")
-    public static long longUnbox(Long b) {
-        if (b != null)
-            return b;
+    public static long longUnbox(Long value) {
+        if (value != null)
+            return value;
         else
             return 0;
     }
 
-    public static Long longBox(long b) {
-        return b > 0 ? b : null;
+    /**
+     * method to box long to Long type
+     *
+     * @param value long type
+     * @return Long type
+     */
+    public static Long longBox(long value) {
+        return value > 0 ? value : null;
     }
 }

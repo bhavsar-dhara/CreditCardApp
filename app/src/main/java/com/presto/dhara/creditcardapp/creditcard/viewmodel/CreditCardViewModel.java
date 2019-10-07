@@ -1,6 +1,5 @@
-package com.presto.dhara.creditcardapp.creditcard.ui;
+package com.presto.dhara.creditcardapp.creditcard.viewmodel;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -9,10 +8,8 @@ import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.presto.dhara.creditcardapp.creditcard.datamodel.CreditCardDetails;
-import com.presto.dhara.creditcardapp.creditcard.datamodel.CreditCardForm;
-
-import timber.log.Timber;
+import com.presto.dhara.creditcardapp.creditcard.model.CreditCardDetails;
+import com.presto.dhara.creditcardapp.creditcard.model.CreditCardForm;
 
 public class CreditCardViewModel extends ViewModel {
 
@@ -25,7 +22,6 @@ public class CreditCardViewModel extends ViewModel {
     private View.OnFocusChangeListener onFocusFirstName;
     private View.OnFocusChangeListener onFocusLastName;
 
-    @VisibleForTesting
     public void init() {
         cardForm = new CreditCardForm();
 
@@ -130,41 +126,6 @@ public class CreditCardViewModel extends ViewModel {
     public static void bindFocusChange(EditText editText, View.OnFocusChangeListener onFocusChangeListener) {
         if (editText.getOnFocusChangeListener() == null) {
             editText.setOnFocusChangeListener(onFocusChangeListener);
-        }
-    }
-
-    public void onCardNumberTextChanged(CharSequence s, int start, int before, int count) {
-        Timber.d("Card Number text changed. Now: %s", s);
-        if (s != null && s.length() > 14 && s.length() < 20) {
-            cardForm.validateFirstName(true);
-        }
-    }
-
-    public void onExpirationDateTextChanged(CharSequence s, int start, int before, int count) {
-        Timber.d("Expiration Date text changed. Now: %s", s);
-        if (s != null && s.length() == 5) {
-            cardForm.validateExpirationDate(true);
-        }
-    }
-
-    public void onCvvNumberTextChanged(CharSequence s, int start, int before, int count) {
-        Timber.d("Cvv Number text changed. Now: %s", s);
-        if (s != null && s.length() == 3 || s.length() == 4) {
-            cardForm.validateCvvNumber(true);
-        }
-    }
-
-    public void onFirstNameTextChanged(CharSequence s, int start, int before, int count) {
-        Timber.d("First Name text changed. Now: %s", s);
-        if (s != null && s.length() > 0) {
-            cardForm.validateFirstName(true);
-        }
-    }
-
-    public void onLastNameTextChanged(CharSequence s, int start, int before, int count) {
-        Timber.d("Last Name text changed. Now: %s", s);
-        if (s != null && s.length() > 0) {
-            cardForm.validateLastName(true);
         }
     }
 }

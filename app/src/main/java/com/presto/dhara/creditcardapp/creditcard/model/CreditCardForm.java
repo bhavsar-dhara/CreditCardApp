@@ -1,6 +1,4 @@
-package com.presto.dhara.creditcardapp.creditcard.datamodel;
-
-import android.util.Log;
+package com.presto.dhara.creditcardapp.creditcard.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -23,6 +21,11 @@ public class CreditCardForm extends BaseObservable {
     private CreditCardErrorFields errors = new CreditCardErrorFields();
     private MutableLiveData<CreditCardDetails> buttonClick = new MutableLiveData<>();
 
+    /**
+     * method to call to check the form's validity
+     *
+     * @return boolean true when valid
+     */
     @Bindable
     public boolean isValid() {
         boolean valid = validateCardNumber(false) &&
@@ -30,6 +33,25 @@ public class CreditCardForm extends BaseObservable {
                 validateCvvNumber(false) &&
                 validateFirstName(false) &&
                 validateLastName(false);
+        notifyPropertyChanged(BR.cardNumberError);
+        notifyPropertyChanged(BR.expirationDateError);
+        notifyPropertyChanged(BR.cvvNumberError);
+        notifyPropertyChanged(BR.firstNameError);
+        notifyPropertyChanged(BR.lastNameError);
+        return valid;
+    }
+
+    /**
+     * method to check the form's validity on submit button click
+     *
+     * @return boolean true when valid
+     */
+    private boolean isValidOnButtonClick() {
+        boolean valid = validateCardNumber(true) &&
+                validateExpirationDate(true) &&
+                validateCvvNumber(true) &&
+                validateFirstName(true) &&
+                validateLastName(true);
         notifyPropertyChanged(BR.cardNumberError);
         notifyPropertyChanged(BR.expirationDateError);
         notifyPropertyChanged(BR.cvvNumberError);
@@ -139,7 +161,7 @@ public class CreditCardForm extends BaseObservable {
      */
     public boolean validateExpirationDate(boolean setMessage) {
         String expirationDate = details.getExpirationDate();
-        if (expirationDate != null) {
+        if (expirationDate != null && !expirationDate.equals("")) {
             Timber.d("validateExpirationDate: date = %s", expirationDate);
             String regex = "^(0[1-9]|1[0-2])/([2-9][0-9])|(1[0-1] 19)$";
             Pattern pattern = Pattern.compile(regex);
@@ -156,7 +178,7 @@ public class CreditCardForm extends BaseObservable {
             }
         } else {
             if (setMessage) {
-                errors.setCardNumber(R.string.required);
+                errors.setExpirationDate(R.string.required);
                 notifyPropertyChanged(BR.valid);
             }
         }
@@ -196,9 +218,14 @@ public class CreditCardForm extends BaseObservable {
                 }
             } else {
                 if (setMessage) {
-                    errors.setCardNumber(R.string.required);
+                    errors.setCvvNumber(R.string.required);
                     notifyPropertyChanged(BR.valid);
                 }
+            }
+        } else {
+            if (setMessage) {
+                errors.setCvvNumber(R.string.card_number_required);
+                notifyPropertyChanged(BR.valid);
             }
         }
         return false;
@@ -213,7 +240,7 @@ public class CreditCardForm extends BaseObservable {
     public boolean validateFirstName(boolean setMessage) {
         String firstName = details.getFirstName();
         Timber.d("validateFirstName: firstName = %s", firstName);
-        if (firstName != null) {
+        if (firstName != null && !firstName.equals("")) {
             String regex = "[\\p{L}\\s]+";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(firstName);
@@ -229,7 +256,7 @@ public class CreditCardForm extends BaseObservable {
             }
         } else {
             if (setMessage) {
-                errors.setCardNumber(R.string.required);
+                errors.setFirstName(R.string.required);
                 notifyPropertyChanged(BR.valid);
             }
         }
@@ -245,7 +272,7 @@ public class CreditCardForm extends BaseObservable {
     public boolean validateLastName(boolean setMessage) {
         String lastName = details.getLastName();
         Timber.d("validateLastName: lastName = %s", lastName);
-        if (lastName != null) {
+        if (lastName != null && !lastName.equals("")) {
             String regex = "[\\p{L}\\s]+";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(lastName);
@@ -262,7 +289,7 @@ public class CreditCardForm extends BaseObservable {
             }
         } else {
             if (setMessage) {
-                errors.setCardNumber(R.string.required);
+                errors.setLastName(R.string.required);
                 notifyPropertyChanged(BR.valid);
             }
         }
@@ -270,8 +297,10 @@ public class CreditCardForm extends BaseObservable {
     }
 
     public void onClick() {
-        if (isValid()) {
+        if (isValidOnButtonClick()) {
             buttonClick.setValue(details);
+        } else {
+            Timber.i("onClick: not valid");
         }
     }
 

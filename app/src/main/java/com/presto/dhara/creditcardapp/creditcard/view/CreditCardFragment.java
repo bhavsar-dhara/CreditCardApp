@@ -1,4 +1,4 @@
-package com.presto.dhara.creditcardapp.creditcard.ui;
+package com.presto.dhara.creditcardapp.creditcard.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,16 +15,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.presto.dhara.creditcardapp.R;
-import com.presto.dhara.creditcardapp.creditcard.datamodel.CreditCardDetails;
+import com.presto.dhara.creditcardapp.creditcard.model.CreditCardDetails;
+import com.presto.dhara.creditcardapp.creditcard.viewmodel.CreditCardViewModel;
 import com.presto.dhara.creditcardapp.databinding.CreditCardFragmentBinding;
 
 public class CreditCardFragment extends Fragment {
 
     private CreditCardViewModel mViewModel;
     private Context context;
+    private Observer<CreditCardDetails> observer;
     private CreditCardFragmentBinding binding;
 
-    public static CreditCardFragment newInstance() {
+    static CreditCardFragment newInstance() {
         return new CreditCardFragment();
     }
 
@@ -55,13 +57,23 @@ public class CreditCardFragment extends Fragment {
 
         binding.setModel(mViewModel);
 
-        mViewModel.getCreditCardDetails()
-                .observe(this, new Observer<CreditCardDetails>() {
+        observer = new Observer<CreditCardDetails>() {
             @Override
             public void onChanged(CreditCardDetails cardDetails) {
-                    Toast.makeText(context, R.string.success_msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.success_msg, Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+        mViewModel.getCreditCardDetails()
+                .observe(this, observer);
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        // To remove any leaks from happening
+        context = null;
+        mViewModel.getCreditCardDetails().removeObserver(observer);
+        if (observer != null)
+            observer = null;
+    }
 }

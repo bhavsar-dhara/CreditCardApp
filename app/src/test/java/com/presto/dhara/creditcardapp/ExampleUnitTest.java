@@ -1,7 +1,7 @@
 package com.presto.dhara.creditcardapp;
 
-import com.presto.dhara.creditcardapp.creditcard.datamodel.CreditCardForm;
-import com.presto.dhara.creditcardapp.creditcard.ui.CreditCardViewModel;
+import com.presto.dhara.creditcardapp.creditcard.model.CreditCardForm;
+import com.presto.dhara.creditcardapp.creditcard.viewmodel.CreditCardViewModel;
 
 import org.junit.Test;
 
@@ -111,41 +111,138 @@ public class ExampleUnitTest {
      * are alphabetical and spaces
      */
     @Test
-    public void email_isShort() {
+    public void date_incorrect() {
         CreditCardViewModel vm = new CreditCardViewModel();
         vm.init();
         CreditCardForm form = vm.getForm();
-//        form.getFields().setEmail("a@b.c");
-//        form.getFields().setPassword("123456");
-//        assertTrue("Email should be invalid", !form.isEmailValid(true));
-//        assertTrue("Password should be valid", form.isPasswordValid(false));
-//        assertTrue("Form is valid, email should be invalid", !form.isValid());
-//        assertEquals("Error message should be \"Too short\" not " + form.getEmailError(), "Too short", form.getEmailError());
+        form.getDetails().setCardNumber(4111111111111111L);
+        form.getDetails().setExpirationDate("13/22");
+        form.getDetails().setCvvNumber(123);
+        form.getDetails().setFirstName("Test");
+        form.getDetails().setLastName("Jr Test");
+        assertTrue("Card Number is valid", form.validateCardNumber(false));
+        assertFalse("Expiration Date is invalid", form.validateExpirationDate(false));
+        assertTrue("Cvv Number is valid", form.validateCvvNumber(false));
+        assertTrue("First Name is valid", form.validateFirstName(false));
+        assertTrue("Last Name is valid", form.validateLastName(false));
     }
 
     @Test
-    public void email_isWrongFormat() {
+    public void card_number_incorrect() {
         CreditCardViewModel vm = new CreditCardViewModel();
         vm.init();
         CreditCardForm form = vm.getForm();
-//        form.getFields().setEmail("aaa@baac");
-//        form.getFields().setPassword("123456");
-//        assertTrue("Email should be invalid", !form.isEmailValid(true));
-//        assertTrue("Password should be valid", form.isPasswordValid(false));
-//        assertTrue("Form is invalid, email should be invalid", !form.isValid());
-//        assertEquals("Error message should be \"Format is invalid\" not " + form.getEmailError(), "Format is invalid", form.getEmailError());
+        form.getDetails().setCardNumber(411111111111L);
+        form.getDetails().setExpirationDate("12/24");
+        form.getDetails().setCvvNumber(999);
+        form.getDetails().setFirstName("Sr Test");
+        form.getDetails().setLastName("Test");
+        assertFalse("Card Number is invalid", form.validateCardNumber(false));
+        assertTrue("Expiration Date is valid", form.validateExpirationDate(false));
+        assertFalse("Cvv Number cannot be validated", form.validateCvvNumber(false));
+        assertTrue("First Name is valid", form.validateFirstName(false));
+        assertTrue("Last Name is valid", form.validateLastName(false));
     }
 
     @Test
-    public void password_isShort() {
+    public void card_number_luhn_incorrect() {
         CreditCardViewModel vm = new CreditCardViewModel();
         vm.init();
         CreditCardForm form = vm.getForm();
-//        form.getFields().setEmail("a@b.cc");
-//        form.getFields().setPassword("1234");
-//        assertTrue("Email should be valid", form.isEmailValid(false));
-//        assertTrue("Password should be invalid", !form.isPasswordValid(true));
-//        assertTrue("Form is invalid, password should be invalid", !form.isValid());
-//        assertEquals("Error message should be \"Too short\" not " + form.getPasswordError(), "Too short", form.getPasswordError());
+        form.getDetails().setCardNumber(4111111111111111101L);
+        form.getDetails().setExpirationDate("12/24");
+        form.getDetails().setCvvNumber(809);
+        form.getDetails().setFirstName("Test");
+        form.getDetails().setLastName("Test Jr");
+        assertFalse("Card Number is invalid", form.validateCardNumber(false));
+        assertTrue("Expiration Date is valid", form.validateExpirationDate(false));
+        assertFalse("Cvv Number cannot be validated", form.validateCvvNumber(false));
+        assertTrue("First Name is valid", form.validateFirstName(false));
+        assertTrue("Last Name is valid", form.validateLastName(false));
+    }
+
+    @Test
+    public void cvv_number_incorrect() {
+        CreditCardViewModel vm = new CreditCardViewModel();
+        vm.init();
+        CreditCardForm form = vm.getForm();
+        form.getDetails().setCardNumber(4111111111111111L);
+        form.getDetails().setExpirationDate("12/24");
+        form.getDetails().setCvvNumber(1234);
+        form.getDetails().setFirstName("Test Sr");
+        form.getDetails().setLastName("Test");
+        assertTrue("Card Number is valid", form.validateCardNumber(false));
+        assertTrue("Expiration Date is valid", form.validateExpirationDate(false));
+        assertFalse("Cvv Number is invalid", form.validateCvvNumber(false));
+        assertTrue("First Name is valid", form.validateFirstName(false));
+        assertTrue("Last Name is valid", form.validateLastName(false));
+    }
+
+    @Test
+    public void first_name_required() {
+        CreditCardViewModel vm = new CreditCardViewModel();
+        vm.init();
+        CreditCardForm form = vm.getForm();
+        form.getDetails().setCardNumber(4111111111111111L);
+        form.getDetails().setExpirationDate("12/24");
+        form.getDetails().setCvvNumber(123);
+        form.getDetails().setFirstName("");
+        form.getDetails().setLastName("Test");
+        assertTrue("Card Number is valid", form.validateCardNumber(false));
+        assertTrue("Expiration Date is valid", form.validateExpirationDate(false));
+        assertTrue("Cvv Number is valid", form.validateCvvNumber(false));
+        assertFalse("First Name is required", form.validateFirstName(false));
+        assertTrue("Last Name is valid", form.validateLastName(false));
+    }
+
+    @Test
+    public void last_name_required() {
+        CreditCardViewModel vm = new CreditCardViewModel();
+        vm.init();
+        CreditCardForm form = vm.getForm();
+        form.getDetails().setCardNumber(4111111111111111L);
+        form.getDetails().setExpirationDate("12/24");
+        form.getDetails().setCvvNumber(123);
+        form.getDetails().setFirstName("Test");
+        form.getDetails().setLastName("");
+        assertTrue("Card Number is valid", form.validateCardNumber(false));
+        assertTrue("Expiration Date is valid", form.validateExpirationDate(false));
+        assertTrue("Cvv Number is valid", form.validateCvvNumber(false));
+        assertTrue("First Name is valid", form.validateFirstName(false));
+        assertFalse("Last Name is required", form.validateLastName(false));
+    }
+
+    @Test
+    public void first_name_incorrect() {
+        CreditCardViewModel vm = new CreditCardViewModel();
+        vm.init();
+        CreditCardForm form = vm.getForm();
+        form.getDetails().setCardNumber(4111111111111111L);
+        form.getDetails().setExpirationDate("12/24");
+        form.getDetails().setCvvNumber(123);
+        form.getDetails().setFirstName("Test3");
+        form.getDetails().setLastName("Test");
+        assertTrue("Card Number is valid", form.validateCardNumber(false));
+        assertTrue("Expiration Date is valid", form.validateExpirationDate(false));
+        assertTrue("Cvv Number is valid", form.validateCvvNumber(false));
+        assertFalse("First Name is invalid", form.validateFirstName(false));
+        assertTrue("Last Name is valid", form.validateLastName(false));
+    }
+
+    @Test
+    public void last_name_incorrect() {
+        CreditCardViewModel vm = new CreditCardViewModel();
+        vm.init();
+        CreditCardForm form = vm.getForm();
+        form.getDetails().setCardNumber(4111111111111111L);
+        form.getDetails().setExpirationDate("12/24");
+        form.getDetails().setCvvNumber(123);
+        form.getDetails().setFirstName("Test");
+        form.getDetails().setLastName("Test4");
+        assertTrue("Card Number is valid", form.validateCardNumber(false));
+        assertTrue("Expiration Date is valid", form.validateExpirationDate(false));
+        assertTrue("Cvv Number is valid", form.validateCvvNumber(false));
+        assertTrue("First Name is valid", form.validateFirstName(false));
+        assertFalse("Last Name is invalid", form.validateLastName(false));
     }
 }
