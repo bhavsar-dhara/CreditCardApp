@@ -22,23 +22,18 @@ public class CreditCardForm extends BaseObservable {
     private MutableLiveData<CreditCardDetails> buttonClick = new MutableLiveData<>();
 
     /**
-     * method to call to check the form's validity
+     * method to call to check the form's validity without displaying the individual errors
+     * used for testing
      *
      * @return boolean true when valid
      */
     @Bindable
     public boolean isValid() {
-        boolean valid = validateCardNumber(false) &&
+        return validateCardNumber(false) &&
                 validateExpirationDate(false) &&
                 validateCvvNumber(false) &&
                 validateFirstName(false) &&
                 validateLastName(false);
-        notifyPropertyChanged(BR.cardNumberError);
-        notifyPropertyChanged(BR.expirationDateError);
-        notifyPropertyChanged(BR.cvvNumberError);
-        notifyPropertyChanged(BR.firstNameError);
-        notifyPropertyChanged(BR.lastNameError);
-        return valid;
     }
 
     /**
@@ -81,15 +76,11 @@ public class CreditCardForm extends BaseObservable {
                             checkValidCardType(cardNumber, AppConstants.MASTERCARD_PREFIX) ||
                             checkValidCardType(cardNumber, AppConstants.DISCOVER_PREFIX)))) {
                 setCardNumberError(null);
-                errors.setCardNumber(null);
-                notifyPropertyChanged(BR.valid);
                 return true;
             } else {
                 if (setMessage) {
                     Timber.d("validateCardNumber: invalid");
                     setCardNumberError(R.string.error_invalid_card_number);
-                    errors.setCardNumber(R.string.error_invalid_card_number);
-                    notifyPropertyChanged(BR.valid);
                 }
                 return false;
             }
@@ -97,8 +88,6 @@ public class CreditCardForm extends BaseObservable {
         if (setMessage) {
             Timber.d("validateCardNumber: required");
             setCardNumberError(R.string.required);
-            errors.setCardNumber(R.string.required);
-            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -173,15 +162,11 @@ public class CreditCardForm extends BaseObservable {
             Matcher matcher = pattern.matcher(expirationDate);
             if (matcher.matches()) {
                 setExpirationDateError(null);
-                errors.setExpirationDate(null);
-                notifyPropertyChanged(BR.valid);
                 return true;
             } else {
                 if (setMessage) {
                     Timber.d("validateExpirationDate: invalid");
                     setExpirationDateError(R.string.error_invalid_expiration_date);
-                    errors.setExpirationDate(R.string.error_invalid_expiration_date);
-                    notifyPropertyChanged(BR.valid);
                 }
                 return false;
             }
@@ -189,8 +174,6 @@ public class CreditCardForm extends BaseObservable {
         if (setMessage) {
             Timber.d("validateExpirationDate: required");
             setExpirationDateError(R.string.required);
-            errors.setExpirationDate(R.string.required);
-            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -218,15 +201,11 @@ public class CreditCardForm extends BaseObservable {
                 Matcher matcher = pattern.matcher(String.valueOf(cvvNumber));
                 if (matcher.matches()) {
                     setCvvNumberError(null);
-                    errors.setCvvNumber(null);
-                    notifyPropertyChanged(BR.valid);
                     return true;
                 } else {
                     if (setMessage) {
                         Timber.d("validateCvvNumber: invalid");
                         setCvvNumberError(R.string.error_invalid_cvv_number);
-                        errors.setCvvNumber(R.string.error_invalid_cvv_number);
-                        notifyPropertyChanged(BR.valid);
                     }
                     return false;
                 }
@@ -234,8 +213,6 @@ public class CreditCardForm extends BaseObservable {
                 if (setMessage) {
                     Timber.d("validateCvvNumber: required");
                     setCvvNumberError(R.string.required);
-                    errors.setCvvNumber(R.string.required);
-                    notifyPropertyChanged(BR.valid);
                 }
                 return false;
             }
@@ -243,8 +220,6 @@ public class CreditCardForm extends BaseObservable {
         if (setMessage) {
             Timber.d("validateCvvNumber: cc no required");
             setCvvNumberError(R.string.card_number_required);
-            errors.setCvvNumber(R.string.card_number_required);
-            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -264,15 +239,11 @@ public class CreditCardForm extends BaseObservable {
             Matcher matcher = pattern.matcher(firstName);
             if (matcher.matches()) {
                 setFirstNameError(null);
-                errors.setFirstName(null);
-                notifyPropertyChanged(BR.valid);
                 return true;
             } else {
                 if (setMessage) {
                     Timber.d("validateFirstName: invalid");
                     setFirstNameError(R.string.error_invalid_first_name);
-                    errors.setFirstName(R.string.error_invalid_first_name);
-                    notifyPropertyChanged(BR.valid);
                 }
                 return false;
             }
@@ -280,8 +251,6 @@ public class CreditCardForm extends BaseObservable {
         if (setMessage) {
             Timber.d("validateFirstName: required");
             setFirstNameError(R.string.required);
-            errors.setFirstName(R.string.required);
-            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -300,16 +269,12 @@ public class CreditCardForm extends BaseObservable {
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(lastName);
             if (matcher.matches()) {
-                errors.setLastName(null);
                 setLastNameError(null);
-                notifyPropertyChanged(BR.valid);
                 return true;
             } else {
                 if (setMessage) {
                     Timber.d("validateLastName: invalid");
                     setLastNameError(R.string.error_invalid_last_name);
-                    errors.setLastName(R.string.error_invalid_last_name);
-                    notifyPropertyChanged(BR.valid);
                 }
                 return false;
             }
@@ -317,8 +282,6 @@ public class CreditCardForm extends BaseObservable {
         if (setMessage) {
             Timber.d("validateLastName: required");
             setLastNameError(R.string.required);
-            errors.setLastName(R.string.required);
-            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
