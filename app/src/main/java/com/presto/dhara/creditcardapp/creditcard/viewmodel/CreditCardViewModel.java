@@ -1,4 +1,4 @@
-package com.presto.dhara.creditcardapp.creditcard.view;
+package com.presto.dhara.creditcardapp.creditcard.viewmodel;
 
 import android.view.View;
 import android.widget.EditText;

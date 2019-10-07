@@ -7,7 +7,7 @@
         <import type="com.presto.dhara.creditcardapp.utils.Converters"/>
         <variable
             name="model"
-            type="com.presto.dhara.creditcardapp.creditcard.view.CreditCardViewModel" />
+            type="com.presto.dhara.creditcardapp.creditcard.viewmodel.CreditCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

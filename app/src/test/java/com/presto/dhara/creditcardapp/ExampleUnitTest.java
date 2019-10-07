@@ -1,7 +1,7 @@
 package com.presto.dhara.creditcardapp;
 
 import com.presto.dhara.creditcardapp.creditcard.model.CreditCardForm;
-import com.presto.dhara.creditcardapp.creditcard.view.CreditCardViewModel;
+import com.presto.dhara.creditcardapp.creditcard.viewmodel.CreditCardViewModel;
 
 import org.junit.Test;
 
