@@ -55,6 +55,10 @@ public class CreditCardFragment extends Fragment {
                 .of(requireActivity())
                 .get(CreditCardViewModel.class);
 
+        if (savedInstanceState == null) {
+            mViewModel.init();
+        }
+
         binding.setModel(mViewModel);
 
         observer = new Observer<CreditCardDetails>() {
@@ -87,6 +91,17 @@ public class CreditCardFragment extends Fragment {
                         if (dialog != null) {
                             dialog.dismiss();
                         }
+                        // reset the form fields
+                        mViewModel.getCardForm().getDetails().setCardNumber(0L);
+                        mViewModel.getCardForm().getDetails().setExpirationDate("");
+                        mViewModel.getCardForm().getDetails().setCvvNumber(0);
+                        mViewModel.getCardForm().getDetails().setFirstName("");
+                        mViewModel.getCardForm().getDetails().setLastName("");
+                        binding.ccCreditCardNumber.setText("");
+                        binding.ccCreditCardExpiration.setText("");
+                        binding.ccCreditCardCvv.setText("");
+                        binding.ccCreditCardFirstName.setText("");
+                        binding.ccCreditCardLastName.setText("");
                     }
                 });
 
