@@ -157,7 +157,7 @@ public class CreditCardForm extends BaseObservable {
         String expirationDate = details.getExpirationDate();
         if (expirationDate != null) {
             Timber.d("validateExpirationDate: date = %s", expirationDate);
-            String regex = "^(0[1-9]|1[0-2])/([2-9][0-9])|(1[0-1] 19)$";
+            String regex = "^(0[1-9]|1[0-2])/([2-9][0-9])|(1[0-2]/19)$";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(expirationDate);
             if (matcher.matches()) {
