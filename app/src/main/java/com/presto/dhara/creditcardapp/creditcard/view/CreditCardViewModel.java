@@ -31,8 +31,7 @@ public class CreditCardViewModel extends ViewModel {
         onFocusCardNumber = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean focused) {
-                EditText et = (EditText) view;
-                if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                if (!focused) {
                     Timber.d("onFocusCardNumber: ");
                     cardForm.validateCardNumber(true);
                 }
@@ -42,8 +41,7 @@ public class CreditCardViewModel extends ViewModel {
         onFocusExpirationDate = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean focused) {
-                EditText et = (EditText) view;
-                if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                if (!focused) {
                     Timber.d("onFocusExpirationDate: ");
                     cardForm.validateExpirationDate(true);
                 }
@@ -53,8 +51,7 @@ public class CreditCardViewModel extends ViewModel {
         onFocusCvvNumber = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean focused) {
-                EditText et = (EditText) view;
-                if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                if (!focused) {
                     Timber.d("onFocusCvvNumber: ");
                     cardForm.validateCvvNumber(true);
                 }
@@ -64,8 +61,7 @@ public class CreditCardViewModel extends ViewModel {
         onFocusFirstName = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean focused) {
-                EditText et = (EditText) view;
-                if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                if (!focused) {
                     Timber.d("onFocusFirstName: ");
                     cardForm.validateFirstName(true);
                 }
@@ -75,8 +71,7 @@ public class CreditCardViewModel extends ViewModel {
         onFocusLastName = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean focused) {
-                EditText et = (EditText) view;
-                if (et.getText() != null && et.getText().length() > 0 && !focused) {
+                if (!focused) {
                     Timber.d("onFocusLastName: ");
                     cardForm.validateLastName(true);
                 }
