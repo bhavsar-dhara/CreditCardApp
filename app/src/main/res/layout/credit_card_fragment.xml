@@ -7,7 +7,7 @@
         <import type="com.presto.dhara.creditcardapp.utils.Converters"/>
         <variable
             name="model"
-            type="com.presto.dhara.creditcardapp.creditcard.viewmodel.CreditCardViewModel" />
+            type="com.presto.dhara.creditcardapp.creditcard.view.CreditCardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,9 +38,9 @@
             android:hint="@string/cc_card_number"
             android:maxLength="19"
             android:text="@={Converters.convertLongToString(Converters.longBox(model.cardForm.details.cardNumber))}"
-            app:onFocus="@{model.getCardNumberOnFocusChangeListener()}"
             app:error="@{model.cardForm.cardNumberError}"
-            app:layout_constraintTop_toBottomOf="@+id/cc_title" />
+            app:layout_constraintTop_toBottomOf="@+id/cc_title"
+            app:onFocus="@{model.getCardNumberOnFocusChangeListener()}" />
 
         <EditText
             android:id="@+id/cc_credit_card_expiration"
@@ -51,9 +51,9 @@
             android:hint="@string/cc_expiration_mm_yy"
             android:maxLength="5"
             android:text="@={model.cardForm.details.expirationDate}"
-            app:onFocus="@{model.getExpirationDateOnFocusChangeListener()}"
             app:error="@{model.cardForm.expirationDateError}"
-            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_number" />
+            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_number"
+            app:onFocus="@{model.getExpirationDateOnFocusChangeListener()}" />
 
         <EditText
             android:id="@+id/cc_credit_card_cvv"
@@ -64,9 +64,9 @@
             android:hint="@string/cc_cvv"
             android:maxLength="4"
             android:text="@={Converters.convertIntToString(Converters.intBox(model.cardForm.details.cvvNumber))}"
-            app:onFocus="@{model.getCvvNumberOnFocusChangeListener()}"
             app:error="@{model.cardForm.cvvNumberError}"
-            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_expiration" />
+            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_expiration"
+            app:onFocus="@{model.getCvvNumberOnFocusChangeListener()}" />
 
         <EditText
             android:id="@+id/cc_credit_card_first_name"
@@ -76,9 +76,9 @@
             android:inputType="textPersonName"
             android:hint="@string/cc_first_name"
             android:text="@={model.cardForm.details.firstName}"
-            app:onFocus="@{model.getFirstNameOnFocusChangeListener()}"
             app:error="@{model.cardForm.firstNameError}"
-            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_cvv" />
+            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_cvv"
+            app:onFocus="@{model.getFirstNameOnFocusChangeListener()}" />
 
         <EditText
             android:id="@+id/cc_credit_card_last_name"
@@ -88,9 +88,9 @@
             android:inputType="textPersonName"
             android:hint="@string/cc_last_name"
             android:text="@={model.cardForm.details.lastName}"
-            app:onFocus="@{model.getLastNameOnFocusChangeListener()}"
             app:error="@{model.cardForm.lastNameError}"
-            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_first_name" />
+            app:layout_constraintTop_toBottomOf="@+id/cc_credit_card_first_name"
+            app:onFocus="@{model.getLastNameOnFocusChangeListener()}" />
 
         <Button
             android:id="@+id/cc_make_payment"

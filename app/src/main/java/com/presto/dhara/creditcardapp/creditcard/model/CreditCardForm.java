@@ -85,15 +85,17 @@ public class CreditCardForm extends BaseObservable {
                 return true;
             } else {
                 if (setMessage) {
+                    Timber.d("validateCardNumber: invalid");
                     errors.setCardNumber(R.string.error_invalid_card_number);
                     notifyPropertyChanged(BR.valid);
                 }
+                return false;
             }
-        } else {
-            if (setMessage) {
-                errors.setCardNumber(R.string.required);
-                notifyPropertyChanged(BR.valid);
-            }
+        }
+        if (setMessage) {
+            Timber.d("validateCardNumber: required");
+            errors.setCardNumber(R.string.required);
+            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -161,7 +163,7 @@ public class CreditCardForm extends BaseObservable {
      */
     public boolean validateExpirationDate(boolean setMessage) {
         String expirationDate = details.getExpirationDate();
-        if (expirationDate != null && !expirationDate.equals("")) {
+        if (expirationDate != null) {
             Timber.d("validateExpirationDate: date = %s", expirationDate);
             String regex = "^(0[1-9]|1[0-2])/([2-9][0-9])|(1[0-1] 19)$";
             Pattern pattern = Pattern.compile(regex);
@@ -172,15 +174,17 @@ public class CreditCardForm extends BaseObservable {
                 return true;
             } else {
                 if (setMessage) {
+                    Timber.d("validateExpirationDate: invalid");
                     errors.setExpirationDate(R.string.error_invalid_expiration_date);
                     notifyPropertyChanged(BR.valid);
                 }
+                return false;
             }
-        } else {
-            if (setMessage) {
-                errors.setExpirationDate(R.string.required);
-                notifyPropertyChanged(BR.valid);
-            }
+        }
+        if (setMessage) {
+            Timber.d("validateExpirationDate: required");
+            errors.setExpirationDate(R.string.required);
+            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -212,21 +216,25 @@ public class CreditCardForm extends BaseObservable {
                     return true;
                 } else {
                     if (setMessage) {
+                        Timber.d("validateCvvNumber: invalid");
                         errors.setCvvNumber(R.string.error_invalid_cvv_number);
                         notifyPropertyChanged(BR.valid);
                     }
+                    return false;
                 }
             } else {
                 if (setMessage) {
+                    Timber.d("validateCvvNumber: required");
                     errors.setCvvNumber(R.string.required);
                     notifyPropertyChanged(BR.valid);
                 }
+                return false;
             }
-        } else {
-            if (setMessage) {
-                errors.setCvvNumber(R.string.card_number_required);
-                notifyPropertyChanged(BR.valid);
-            }
+        }
+        if (setMessage) {
+            Timber.d("validateCvvNumber: cc no required");
+            errors.setCvvNumber(R.string.card_number_required);
+            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -240,7 +248,7 @@ public class CreditCardForm extends BaseObservable {
     public boolean validateFirstName(boolean setMessage) {
         String firstName = details.getFirstName();
         Timber.d("validateFirstName: firstName = %s", firstName);
-        if (firstName != null && !firstName.equals("")) {
+        if (firstName != null) {
             String regex = "[\\p{L}\\s]+";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(firstName);
@@ -250,15 +258,17 @@ public class CreditCardForm extends BaseObservable {
                 return true;
             } else {
                 if (setMessage) {
+                    Timber.d("validateFirstName: invalid");
                     errors.setFirstName(R.string.error_invalid_first_name);
                     notifyPropertyChanged(BR.valid);
                 }
+                return false;
             }
-        } else {
-            if (setMessage) {
-                errors.setFirstName(R.string.required);
-                notifyPropertyChanged(BR.valid);
-            }
+        }
+        if (setMessage) {
+            Timber.d("validateFirstName: required");
+            errors.setFirstName(R.string.required);
+            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
@@ -272,7 +282,7 @@ public class CreditCardForm extends BaseObservable {
     public boolean validateLastName(boolean setMessage) {
         String lastName = details.getLastName();
         Timber.d("validateLastName: lastName = %s", lastName);
-        if (lastName != null && !lastName.equals("")) {
+        if (lastName != null) {
             String regex = "[\\p{L}\\s]+";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(lastName);
@@ -282,16 +292,17 @@ public class CreditCardForm extends BaseObservable {
                 return true;
             } else {
                 if (setMessage) {
+                    Timber.d("validateLastName: invalid");
                     errors.setLastName(R.string.error_invalid_last_name);
                     notifyPropertyChanged(BR.valid);
                 }
                 return false;
             }
-        } else {
-            if (setMessage) {
-                errors.setLastName(R.string.required);
-                notifyPropertyChanged(BR.valid);
-            }
+        }
+        if (setMessage) {
+            Timber.d("validateLastName: required");
+            errors.setLastName(R.string.required);
+            notifyPropertyChanged(BR.valid);
         }
         return false;
     }
