@@ -1,4 +1,4 @@
-# Credit Card Exercise - Presto
+# Credit Card Exercise
 
 This exercise android app implementation handles credit card payments which allows user to input the following card data details:
 
